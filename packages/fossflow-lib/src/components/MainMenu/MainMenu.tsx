@@ -257,7 +257,7 @@ export const MainMenu = () => {
               {mainMenuOptions.includes('VERSION') && (
                 <MenuItem>
                   <Typography variant="body2" color="text.secondary">
-                    FossFLOW v{PACKAGE_VERSION}
+                    Sleeqy Diagram v{PACKAGE_VERSION}
                   </Typography>
                 </MenuItem>
               )}
