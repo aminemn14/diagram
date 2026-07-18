@@ -1,7 +1,7 @@
 {
-  "short_name": "FossFLOW",
-  "name": "FossFLOW - Isometric Diagramming Tool",
-  "description": "Create beautiful isometric diagrams with FossFLOW",
+  "short_name": "Sleeqy",
+  "name": "Sleeqy Diagram",
+  "description": "Creez des diagrammes isometriques avec Sleeqy Diagram.",
   "icons": [
     {
       "src": "favicon.ico",
