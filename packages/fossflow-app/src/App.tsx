@@ -8,6 +8,7 @@ import azureIsopack from '@isoflow/isopacks/dist/azure';
 import kubernetesIsopack from '@isoflow/isopacks/dist/kubernetes';
 import { DiagramData, mergeDiagramData, extractSavableData } from './diagramUtils';
 import { StorageManager } from './StorageManager';
+import { AppHeader } from './components/AppHeader';
 import { DiagramManager } from './components/DiagramManager';
 import { storageManager } from './services/storageService';
 import './App.css';
@@ -513,54 +514,23 @@ function App() {
 
   return (
     <div className="App">
-      <div className="toolbar">
-        <button onClick={newDiagram}>Nouveau diagramme</button>
-        {serverStorageAvailable && (
-          <button 
-            onClick={() => setShowDiagramManager(true)}
-            style={{ backgroundColor: '#2196F3', color: 'white' }}
-          >
-            🌐 Stockage serveur
-          </button>
-        )}
-        <button onClick={() => setShowSaveDialog(true)}>Enregistrer (session uniquement)</button>
-        <button onClick={() => setShowLoadDialog(true)}>Charger (session uniquement)</button>
-        <button 
-          onClick={() => setShowImportDialog(true)}
-          style={{ backgroundColor: '#28a745' }}
-        >
-          📂 Importer un fichier
-        </button>
-        <button 
-          onClick={() => setShowExportDialog(true)}
-          style={{ backgroundColor: '#007bff' }}
-        >
-          💾 Exporter un fichier
-        </button>
-        <button 
-          onClick={() => {
-            if (currentDiagram && hasUnsavedChanges) {
-              saveDiagram();
-            }
-          }}
-          disabled={!currentDiagram || !hasUnsavedChanges}
-          style={{ 
-            backgroundColor: currentDiagram && hasUnsavedChanges ? '#ffc107' : '#6c757d',
-            opacity: currentDiagram && hasUnsavedChanges ? 1 : 0.5,
-            cursor: currentDiagram && hasUnsavedChanges ? 'pointer' : 'not-allowed'
-          }}
-          title="Enregistrer uniquement dans la session actuelle"
-        >
-          Enregistrement rapide (session)
-        </button>
-        <span className="current-diagram">
-          {currentDiagram ? `Actuel : ${currentDiagram.name}` : diagramName || 'Diagramme sans titre'}
-          {hasUnsavedChanges && <span style={{ color: '#ff9800', marginLeft: '10px' }}>• Modifie</span>}
-          <span style={{ fontSize: '12px', color: '#666', marginLeft: '10px' }}>
-            (Stockage de session uniquement - exportez pour conserver definitivement)
-          </span>
-        </span>
-      </div>
+      <AppHeader
+        currentDiagram={currentDiagram}
+        diagramName={diagramName}
+        hasUnsavedChanges={hasUnsavedChanges}
+        serverStorageAvailable={serverStorageAvailable}
+        onNewDiagram={newDiagram}
+        onOpenServerStorage={() => setShowDiagramManager(true)}
+        onOpenSaveDialog={() => setShowSaveDialog(true)}
+        onOpenLoadDialog={() => setShowLoadDialog(true)}
+        onOpenImportDialog={() => setShowImportDialog(true)}
+        onOpenExportDialog={() => setShowExportDialog(true)}
+        onQuickSave={() => {
+          if (currentDiagram && hasUnsavedChanges) {
+            saveDiagram();
+          }
+        }}
+      />
 
       <div className="fossflow-container">
         <Isoflow 
