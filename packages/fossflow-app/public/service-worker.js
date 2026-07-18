@@ -1,9 +1,12 @@
-const CACHE_NAME = 'sleeqy-diagram-v2';
+const CACHE_NAME = 'sleeqy-diagram-v3';
 const urlsToCache = [
   '/manifest.json',
-  '/favicon.ico',
-  '/logo192.png',
-  '/logo512.png'
+  '/favicon/favicon.ico',
+  '/favicon/favicon.svg',
+  '/favicon/favicon-96x96.png',
+  '/favicon/apple-touch-icon.png',
+  '/favicon/web-app-manifest-192x192.png',
+  '/favicon/web-app-manifest-512x512.png'
 ];
 
 self.addEventListener('install', event => {
