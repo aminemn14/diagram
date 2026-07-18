@@ -146,7 +146,7 @@ export const QuickIconSelector = ({ onIconSelected, onClose, currentIconId }: Pr
           <TextField
             ref={searchInputRef}
             fullWidth
-            placeholder="Search icons (press Enter to select)"
+            placeholder="Rechercher des icones (Entree pour selectionner)"
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -167,7 +167,7 @@ export const QuickIconSelector = ({ onIconSelected, onClose, currentIconId }: Pr
           {!searchTerm && recentIcons.length > 0 && (
             <>
               <Typography variant="caption" color="text.secondary">
-                RECENTLY USED
+                UTILISEES RECEMMENT
               </Typography>
               <IconGrid
                 icons={recentIcons}
@@ -185,7 +185,7 @@ export const QuickIconSelector = ({ onIconSelected, onClose, currentIconId }: Pr
         <>
           <Section sx={{ py: 1 }}>
             <Typography variant="caption" color="text.secondary">
-              SEARCH RESULTS ({filteredIcons.length} icons)
+              RESULTATS DE RECHERCHE ({filteredIcons.length} icones)
             </Typography>
           </Section>
           <Divider />
@@ -202,7 +202,7 @@ export const QuickIconSelector = ({ onIconSelected, onClose, currentIconId }: Pr
               </Section>
             ) : (
               <Section>
-                <Alert severity="info">No icons found matching "{searchTerm}"</Alert>
+                <Alert severity="info">Aucune icone ne correspond a "{searchTerm}"</Alert>
               </Section>
             )}
           </Box>
@@ -224,8 +224,8 @@ export const QuickIconSelector = ({ onIconSelected, onClose, currentIconId }: Pr
       <Section sx={{ py: 1 }}>
         <Typography variant="caption" color="text.secondary">
           {searchTerm 
-            ? 'Use arrow keys to navigate • Enter to select • Double-click to select and close'
-            : 'Type to search • Click category to expand • Double-click to select and close'
+            ? 'Utilisez les fleches pour naviguer • Entree pour selectionner • Double-clic pour selectionner et fermer'
+            : 'Tapez pour rechercher • Cliquez sur une categorie pour l’ouvrir • Double-clic pour selectionner et fermer'
           }
         </Typography>
       </Section>

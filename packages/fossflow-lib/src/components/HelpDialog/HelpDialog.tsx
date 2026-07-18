@@ -28,77 +28,77 @@ interface ShortcutItem {
 
 const keyboardShortcuts: ShortcutItem[] = [
   {
-    action: 'Undo',
+    action: 'Annuler',
     shortcut: 'Ctrl+Z',
-    description: 'Undo the last action'
+    description: 'Annuler la derniere action'
   },
   {
-    action: 'Redo',
+    action: 'Retablir',
     shortcut: 'Ctrl+Y',
-    description: 'Redo the last undone action'
+    description: 'Retablir la derniere action annulee'
   },
   {
-    action: 'Redo (Alternative)',
+    action: 'Retablir (alternative)',
     shortcut: 'Ctrl+Shift+Z',
-    description: 'Alternative redo shortcut'
+    description: 'Raccourci alternatif pour retablir'
   },
   {
-    action: 'Help',
+    action: 'Aide',
     shortcut: 'F1',
-    description: 'Open help dialog with keyboard shortcuts'
+    description: "Ouvrir l'aide avec les raccourcis clavier"
   },
   {
-    action: 'Zoom In',
-    shortcut: 'Mouse Wheel Up',
-    description: 'Zoom in on the canvas'
+    action: 'Zoom avant',
+    shortcut: 'Molette vers le haut',
+    description: 'Zoomer sur le canevas'
   },
   {
-    action: 'Zoom Out',
-    shortcut: 'Mouse Wheel Down',
-    description: 'Zoom out from the canvas'
+    action: 'Zoom arriere',
+    shortcut: 'Molette vers le bas',
+    description: 'Dezoomer sur le canevas'
   },
   {
-    action: 'Pan Canvas',
-    shortcut: 'Left-click + Drag',
-    description: 'Pan the canvas when in Pan mode'
+    action: 'Deplacer le canevas',
+    shortcut: 'Clic gauche + glisser',
+    description: 'Deplacer le canevas en mode deplacement'
   },
   {
-    action: 'Context Menu',
-    shortcut: 'Right-click',
-    description: 'Open context menu for items or empty space'
+    action: 'Menu contextuel',
+    shortcut: 'Clic droit',
+    description: 'Ouvrir le menu contextuel sur les elements ou sur un espace vide'
   }
 ];
 
 const mouseInteractions: ShortcutItem[] = [
   {
-    action: 'Select Tool',
-    shortcut: 'Click Select button',
-    description: 'Switch to selection mode'
+    action: 'Outil de selection',
+    shortcut: 'Cliquer sur Selectionner',
+    description: 'Passer en mode selection'
   },
   {
-    action: 'Pan Tool',
-    shortcut: 'Click Pan button',
-    description: 'Switch to pan mode for moving canvas'
+    action: 'Outil de deplacement',
+    shortcut: 'Cliquer sur Deplacer la vue',
+    description: 'Passer en mode deplacement du canevas'
   },
   {
-    action: 'Add Item',
-    shortcut: 'Click Add item button',
-    description: 'Open icon picker to add new items'
+    action: 'Ajouter un element',
+    shortcut: 'Cliquer sur Ajouter un element',
+    description: "Ouvrir le selecteur d'icones pour ajouter de nouveaux elements"
   },
   {
-    action: 'Draw Rectangle',
-    shortcut: 'Click Rectangle button',
-    description: 'Switch to rectangle drawing mode'
+    action: 'Dessiner un rectangle',
+    shortcut: 'Cliquer sur Rectangle',
+    description: 'Passer en mode dessin de rectangle'
   },
   {
-    action: 'Create Connector',
-    shortcut: 'Click Connector button',
-    description: 'Switch to connector mode'
+    action: 'Creer un connecteur',
+    shortcut: 'Cliquer sur Connecteur',
+    description: 'Passer en mode connecteur'
   },
   {
-    action: 'Add Text',
-    shortcut: 'Click Text button',
-    description: 'Create a new text box'
+    action: 'Ajouter du texte',
+    shortcut: 'Cliquer sur Texte',
+    description: 'Creer une nouvelle zone de texte'
   }
 ];
 
@@ -131,7 +131,7 @@ export const HelpDialog = () => {
       <DialogTitle>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <Typography variant="h6" component="div">
-            Keyboard Shortcuts & Help
+            Raccourcis clavier et aide
           </Typography>
           <Button
             onClick={handleClose}
@@ -153,14 +153,14 @@ export const HelpDialog = () => {
       <DialogContent>
         <Box sx={{ mb: 3 }}>
           <Typography variant="h6" gutterBottom>
-            Keyboard Shortcuts
+            Raccourcis clavier
           </Typography>
           <TableContainer component={Paper} variant="outlined">
             <Table>
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ fontWeight: 'bold' }}>Action</TableCell>
-                  <TableCell sx={{ fontWeight: 'bold' }}>Shortcut</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold' }}>Raccourci</TableCell>
                   <TableCell sx={{ fontWeight: 'bold' }}>Description</TableCell>
                 </TableRow>
               </TableHead>
@@ -194,14 +194,14 @@ export const HelpDialog = () => {
 
         <Box>
           <Typography variant="h6" gutterBottom>
-            Mouse Interactions
+            Interactions souris
           </Typography>
           <TableContainer component={Paper} variant="outlined">
             <Table>
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ fontWeight: 'bold' }}>Action</TableCell>
-                  <TableCell sx={{ fontWeight: 'bold' }}>Method</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold' }}>Methode</TableCell>
                   <TableCell sx={{ fontWeight: 'bold' }}>Description</TableCell>
                 </TableRow>
               </TableHead>
@@ -233,16 +233,16 @@ export const HelpDialog = () => {
 
         <Box sx={{ mt: 3, p: 2, bgcolor: 'info.light', borderRadius: 1 }}>
           <Typography variant="body2" color="info.contrastText">
-            <strong>Note:</strong> Keyboard shortcuts are disabled when typing
-            in input fields, text areas, or content-editable elements to prevent
-            conflicts.
+            <strong>Note :</strong> les raccourcis clavier sont desactives lors de la saisie
+            dans les champs, zones de texte ou elements modifiables afin d'eviter
+            les conflits.
           </Typography>
         </Box>
       </DialogContent>
 
       <DialogActions>
         <Button onClick={handleClose} variant="contained">
-          Close
+          Fermer
         </Button>
       </DialogActions>
     </Dialog>

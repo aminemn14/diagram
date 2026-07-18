@@ -30,7 +30,7 @@ export const RectangleControls = ({ id }: Props) => {
       <Box sx={{ position: 'relative' }}>
         {/* Close button */}
         <MUIIconButton
-          aria-label="Close"
+          aria-label="fermer"
           onClick={() => {
             return uiStateActions.setItemControls(null);
           }}

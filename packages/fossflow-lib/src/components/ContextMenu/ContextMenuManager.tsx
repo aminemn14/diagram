@@ -45,7 +45,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
         )}
         menuItems={[
           {
-            label: 'Add Node',
+            label: 'Ajouter un noeud',
             onClick: () => {
               if (model.icons.length > 0) {
                 const modelItemId = generateId();
@@ -57,7 +57,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
                 scene.placeIcon({
                   modelItem: {
                     id: modelItemId,
-                    name: 'Untitled',
+                    name: 'Sans titre',
                     icon: firstIcon.id
                   },
                   viewItem: {
@@ -71,7 +71,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
             }
           },
           {
-            label: 'Add Rectangle',
+            label: 'Ajouter un rectangle',
             onClick: () => {
               if (model.colors.length > 0) {
                 scene.createRectangle({
@@ -100,28 +100,28 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
         )}
         menuItems={[
           {
-            label: 'Send backward',
+            label: "Reculer d'un plan",
             onClick: () => {
               scene.changeLayerOrder('SEND_BACKWARD', contextMenu.item!);
               onClose();
             }
           },
           {
-            label: 'Bring forward',
+            label: "Avancer d'un plan",
             onClick: () => {
               scene.changeLayerOrder('BRING_FORWARD', contextMenu.item!);
               onClose();
             }
           },
           {
-            label: 'Send to back',
+            label: "Envoyer a l'arriere",
             onClick: () => {
               scene.changeLayerOrder('SEND_TO_BACK', contextMenu.item!);
               onClose();
             }
           },
           {
-            label: 'Bring to front',
+            label: 'Mettre au premier plan',
             onClick: () => {
               scene.changeLayerOrder('BRING_TO_FRONT', contextMenu.item!);
               onClose();

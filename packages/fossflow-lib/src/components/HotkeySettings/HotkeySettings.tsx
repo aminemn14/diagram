@@ -24,30 +24,30 @@ export const HotkeySettings = () => {
   const currentMapping = HOTKEY_PROFILES[hotkeyProfile];
 
   const tools = [
-    { name: 'Select', key: currentMapping.select },
-    { name: 'Pan', key: currentMapping.pan },
-    { name: 'Add Item', key: currentMapping.addItem },
+    { name: 'Selectionner', key: currentMapping.select },
+    { name: 'Deplacer la vue', key: currentMapping.pan },
+    { name: 'Ajouter un element', key: currentMapping.addItem },
     { name: 'Rectangle', key: currentMapping.rectangle },
-    { name: 'Connector', key: currentMapping.connector },
-    { name: 'Text', key: currentMapping.text }
+    { name: 'Connecteur', key: currentMapping.connector },
+    { name: 'Texte', key: currentMapping.text }
   ];
 
   return (
     <Box sx={{ p: 2 }}>
       <Typography variant="h6" gutterBottom>
-        Hotkey Settings
+        Parametres des raccourcis
       </Typography>
       
       <FormControl fullWidth sx={{ mb: 3 }}>
-        <InputLabel>Hotkey Profile</InputLabel>
+        <InputLabel>Profil de raccourcis</InputLabel>
         <Select
           value={hotkeyProfile}
-          label="Hotkey Profile"
+          label="Profil de raccourcis"
           onChange={(e) => setHotkeyProfile(e.target.value as HotkeyProfile)}
         >
           <MenuItem value="qwerty">QWERTY (Q, W, E, R, T, Y)</MenuItem>
           <MenuItem value="smnrct">SMNRCT (S, M, N, R, C, T)</MenuItem>
-          <MenuItem value="none">No Hotkeys</MenuItem>
+          <MenuItem value="none">Aucun raccourci</MenuItem>
         </Select>
       </FormControl>
 
@@ -56,8 +56,8 @@ export const HotkeySettings = () => {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Tool</TableCell>
-                <TableCell>Hotkey</TableCell>
+                <TableCell>Outil</TableCell>
+                <TableCell>Raccourci</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -77,7 +77,7 @@ export const HotkeySettings = () => {
       )}
 
       <Typography variant="caption" color="text.secondary" sx={{ mt: 2, display: 'block' }}>
-        Note: Hotkeys work when not typing in text fields
+        Note : les raccourcis fonctionnent lorsque vous n'etes pas en train d'ecrire dans un champ
       </Typography>
     </Box>
   );

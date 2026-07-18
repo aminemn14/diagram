@@ -23,6 +23,14 @@ interface Props {
   id: string;
 }
 
+type ConnectorStyleOption = (typeof connectorStyleOptions)[number];
+
+const connectorStyleLabels: Record<ConnectorStyleOption, string> = {
+  SOLID: 'Continu',
+  DOTTED: 'Pointille',
+  DASHED: 'Tirets'
+};
+
 export const ConnectorControls = ({ id }: Props) => {
   const uiStateActions = useUiStateStore((state) => {
     return state.actions;
@@ -40,7 +48,7 @@ export const ConnectorControls = ({ id }: Props) => {
       <Box sx={{ position: 'relative', paddingTop: '24px' }}>
         {/* Close button */}
         <MUIIconButton
-          aria-label="Close"
+          aria-label="fermer"
           onClick={() => {
             return uiStateActions.setItemControls(null);
           }}
@@ -73,7 +81,7 @@ export const ConnectorControls = ({ id }: Props) => {
             activeColor={connector.color}
           />
         </Section>
-        <Section title="Width">
+        <Section title="Largeur">
           <Slider
             marks
             step={10}
@@ -95,7 +103,11 @@ export const ConnectorControls = ({ id }: Props) => {
             }}
           >
             {Object.values(connectorStyleOptions).map((style) => {
-              return <MenuItem value={style}>{style}</MenuItem>;
+              return (
+                <MenuItem key={style} value={style}>
+                  {connectorStyleLabels[style]}
+                </MenuItem>
+              );
             })}
           </Select>
         </Section>
@@ -111,7 +123,7 @@ export const ConnectorControls = ({ id }: Props) => {
                 }}
               />
             }
-            label="Show Arrow"
+            label="Afficher la fleche"
           />
         </Section>
         <Section>

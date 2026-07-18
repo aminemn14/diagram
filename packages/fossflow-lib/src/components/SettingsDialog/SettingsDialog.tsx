@@ -38,9 +38,9 @@ export const SettingsDialog = () => {
       fullWidth
     >
       <DialogTitle>
-        Settings
+        Parametres
         <IconButton
-          aria-label="close"
+          aria-label="fermer"
           onClick={handleClose}
           sx={{
             position: 'absolute',
@@ -54,8 +54,8 @@ export const SettingsDialog = () => {
       </DialogTitle>
       <DialogContent dividers>
         <Tabs value={tabValue} onChange={handleTabChange} sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tab label="Hotkeys" />
-          <Tab label="Pan Controls" />
+          <Tab label="Raccourcis" />
+          <Tab label="Deplacement" />
         </Tabs>
         
         <Box sx={{ mt: 2 }}>
@@ -64,7 +64,7 @@ export const SettingsDialog = () => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Close</Button>
+        <Button onClick={handleClose}>Fermer</Button>
       </DialogActions>
     </Dialog>
   );
