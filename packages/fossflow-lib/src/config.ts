@@ -34,7 +34,7 @@ export const DEFAULT_FONT_FAMILY = 'Roboto, Arial, sans-serif';
 export const VIEW_DEFAULTS: Required<
   Omit<View, 'id' | 'description' | 'lastUpdated'>
 > = {
-  name: 'Untitled view',
+  name: 'Vue sans titre',
   items: [],
   connectors: [],
   rectangles: [],
@@ -60,7 +60,7 @@ export const CONNECTOR_SEARCH_OFFSET = { x: 1, y: 1 };
 export const TEXTBOX_DEFAULTS: Required<Omit<TextBox, 'id' | 'tile'>> = {
   orientation: 'X',
   fontSize: 0.6,
-  content: 'Text'
+  content: 'Texte'
 };
 
 export const TEXTBOX_PADDING = 0.2;
@@ -76,7 +76,7 @@ export const MAX_ZOOM = 1;
 export const TRANSFORM_ANCHOR_SIZE = 30;
 export const TRANSFORM_CONTROLS_COLOR = '#0392ff';
 export const INITIAL_DATA: InitialData = {
-  title: 'Untitled',
+  title: 'Sans titre',
   version: '',
   icons: [],
   colors: [DEFAULT_COLOR],

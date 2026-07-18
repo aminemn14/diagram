@@ -33,12 +33,12 @@ export const PanSettings = () => {
   return (
     <Box sx={{ p: 2 }}>
       <Typography variant="h6" gutterBottom>
-        Pan Settings
+        Parametres de deplacement
       </Typography>
       
       <Paper sx={{ p: 2, mb: 2 }}>
         <Typography variant="subtitle2" gutterBottom>
-          Mouse Pan Options
+          Options de deplacement a la souris
         </Typography>
         
         <FormControlLabel
@@ -48,7 +48,7 @@ export const PanSettings = () => {
               onChange={() => handleToggle('emptyAreaClickPan')}
             />
           }
-          label="Click and drag on empty area"
+          label="Cliquer-glisser sur une zone vide"
         />
         
         <FormControlLabel
@@ -58,7 +58,7 @@ export const PanSettings = () => {
               onChange={() => handleToggle('middleClickPan')}
             />
           }
-          label="Middle click and drag"
+          label="Clic molette + glisser"
         />
         
         <FormControlLabel
@@ -68,7 +68,7 @@ export const PanSettings = () => {
               onChange={() => handleToggle('rightClickPan')}
             />
           }
-          label="Right click and drag"
+          label="Clic droit + glisser"
         />
         
         <FormControlLabel
@@ -78,7 +78,7 @@ export const PanSettings = () => {
               onChange={() => handleToggle('ctrlClickPan')}
             />
           }
-          label="Ctrl + click and drag"
+          label="Ctrl + clic + glisser"
         />
         
         <FormControlLabel
@@ -88,13 +88,13 @@ export const PanSettings = () => {
               onChange={() => handleToggle('altClickPan')}
             />
           }
-          label="Alt + click and drag"
+          label="Alt + clic + glisser"
         />
       </Paper>
 
       <Paper sx={{ p: 2 }}>
         <Typography variant="subtitle2" gutterBottom>
-          Keyboard Pan Options
+          Options de deplacement au clavier
         </Typography>
         
         <FormControlLabel
@@ -104,7 +104,7 @@ export const PanSettings = () => {
               onChange={() => handleToggle('arrowKeysPan')}
             />
           }
-          label="Arrow keys"
+          label="Touches flechees"
         />
         
         <FormControlLabel
@@ -114,7 +114,7 @@ export const PanSettings = () => {
               onChange={() => handleToggle('wasdPan')}
             />
           }
-          label="WASD keys"
+          label="Touches WASD"
         />
         
         <FormControlLabel
@@ -124,13 +124,13 @@ export const PanSettings = () => {
               onChange={() => handleToggle('ijklPan')}
             />
           }
-          label="IJKL keys"
+          label="Touches IJKL"
         />
         
         <Divider sx={{ my: 2 }} />
         
         <Typography variant="subtitle2" gutterBottom>
-          Keyboard Pan Speed
+          Vitesse de deplacement au clavier
         </Typography>
         
         <Box sx={{ px: 2 }}>
@@ -147,7 +147,7 @@ export const PanSettings = () => {
       </Paper>
 
       <Typography variant="caption" color="text.secondary" sx={{ mt: 2, display: 'block' }}>
-        Note: Pan options work in addition to the dedicated Pan tool
+        Note : les options de deplacement fonctionnent en plus de l'outil de deplacement dedie
       </Typography>
     </Box>
   );

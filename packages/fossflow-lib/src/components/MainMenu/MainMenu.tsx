@@ -66,7 +66,7 @@ export const MainMenu = () => {
       const file = (event.target as HTMLInputElement).files?.[0];
 
       if (!file) {
-        throw new Error('No file selected');
+        throw new Error('Aucun fichier selectionne');
       }
 
       const fileReader = new FileReader();
@@ -154,7 +154,7 @@ export const MainMenu = () => {
     <UiElement>
       <IconButton
         Icon={<MenuIcon />}
-        name="Main menu"
+        name="Menu principal"
         onClick={onToggleMenu}
         isActive={isMainMenuOpen}
       />
@@ -183,7 +183,7 @@ export const MainMenu = () => {
             Icon={<UndoIcon />}
             disabled={!canUndo}
           >
-            Undo
+            Annuler
           </MenuItem>
 
           <MenuItem
@@ -191,7 +191,7 @@ export const MainMenu = () => {
             Icon={<RedoIcon />}
             disabled={!canRedo}
           >
-            Redo
+            Retablir
           </MenuItem>
 
           {(canUndo || canRedo) && sectionVisibility.actions && <Divider />}
@@ -199,38 +199,38 @@ export const MainMenu = () => {
           {/* File Actions */}
           {mainMenuOptions.includes('ACTION.OPEN') && (
             <MenuItem onClick={onOpenModel} Icon={<FolderOpenIcon />}>
-              Open
+              Ouvrir
             </MenuItem>
           )}
 
           {mainMenuOptions.includes('EXPORT.JSON') && (
             <MenuItem onClick={onExportAsJSON} Icon={<ExportJsonIcon />}>
-              Export as JSON
+              Exporter en JSON
             </MenuItem>
           )}
 
           {mainMenuOptions.includes('EXPORT.JSON') && (
             <MenuItem onClick={onExportAsCompactJSON} Icon={<ExportJsonIcon />}>
-              Export as Compact JSON
+              Exporter en JSON compact
             </MenuItem>
           )}
 
           {mainMenuOptions.includes('EXPORT.PNG') && (
             <MenuItem onClick={onExportAsImage} Icon={<ExportImageIcon />}>
-              Export as image
+              Exporter en image
             </MenuItem>
           )}
 
           {mainMenuOptions.includes('ACTION.CLEAR_CANVAS') && (
             <MenuItem onClick={onClearCanvas} Icon={<DeleteOutlineIcon />}>
-              Clear the canvas
+              Vider le canevas
             </MenuItem>
           )}
 
           <Divider />
 
           <MenuItem onClick={onOpenSettings} Icon={<SettingsIcon />}>
-            Settings
+            Parametres
           </MenuItem>
 
           {sectionVisibility.links && (

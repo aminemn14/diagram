@@ -128,15 +128,15 @@ export const ExportImageDialog = ({ onClose, quality = 1.5 }: Props) => {
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>Export as image</DialogTitle>
+      <DialogTitle>Exporter en image</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
           <Alert severity="info">
             <strong>
-              Certain browsers may not support exporting images properly.
+              Certains navigateurs peuvent ne pas prendre correctement en charge l'export d'images.
             </strong>{' '}
             <br />
-            For best results, please use the latest version of either Chrome or
+            Pour un meilleur resultat, utilisez la derniere version de Chrome ou
             Firefox.
           </Alert>
 
@@ -201,7 +201,7 @@ export const ExportImageDialog = ({ onClose, quality = 1.5 }: Props) => {
                   width: unprojectedBounds.width
                 }}
                 src={imageData}
-                alt="preview"
+                alt="apercu"
               />
             )}
             <Box sx={{ width: '100%' }}>
@@ -211,7 +211,7 @@ export const ExportImageDialog = ({ onClose, quality = 1.5 }: Props) => {
                 </Typography>
 
                 <FormControlLabel
-                  label="Show grid"
+                  label="Afficher la grille"
                   control={
                     <Checkbox
                       size="small"
@@ -223,7 +223,7 @@ export const ExportImageDialog = ({ onClose, quality = 1.5 }: Props) => {
                   }
                 />
                 <FormControlLabel
-                  label="Background color"
+                  label="Couleur d'arriere-plan"
                   control={
                     <ColorPicker
                       value={backgroundColor}
@@ -237,16 +237,16 @@ export const ExportImageDialog = ({ onClose, quality = 1.5 }: Props) => {
               <Stack sx={{ width: '100%' }} alignItems="flex-end">
                 <Stack direction="row" spacing={2}>
                   <Button variant="text" onClick={onClose}>
-                    Cancel
+                    Annuler
                   </Button>
-                  <Button onClick={downloadFile}>Download as PNG</Button>
+                  <Button onClick={downloadFile}>Telecharger en PNG</Button>
                 </Stack>
               </Stack>
             )}
           </Stack>
 
           {exportError && (
-            <Alert severity="error">Could not export image</Alert>
+            <Alert severity="error">Impossible d'exporter l'image</Alert>
           )}
         </Stack>
       </DialogContent>

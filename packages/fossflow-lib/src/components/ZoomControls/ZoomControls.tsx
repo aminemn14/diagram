@@ -28,7 +28,7 @@ export const ZoomControls = () => {
       <UiElement>
         <Stack direction="row">
           <IconButton
-            name="Zoom out"
+            name="Zoom arriere"
             Icon={<ZoomOutIcon />}
             onClick={uiStateStoreActions.decrementZoom}
             disabled={zoom >= MAX_ZOOM}
@@ -48,7 +48,7 @@ export const ZoomControls = () => {
           </Box>
           <Divider orientation="vertical" flexItem />
           <IconButton
-            name="Zoom in"
+            name="Zoom avant"
             Icon={<ZoomInIcon />}
             onClick={uiStateStoreActions.incrementZoom}
             disabled={zoom <= MIN_ZOOM}
@@ -57,14 +57,14 @@ export const ZoomControls = () => {
       </UiElement>
       <UiElement>
         <IconButton
-          name="Fit to screen"
+          name="Ajuster a l'ecran"
           Icon={<FitToScreenIcon />}
           onClick={fitToView}
         />
       </UiElement>
       <UiElement>
         <IconButton
-          name="Help (F1)"
+          name="Aide (F1)"
           Icon={<HelpIcon />}
           onClick={() => {
             return uiStateStoreActions.setDialog(DialogTypeEnum.HELP);
