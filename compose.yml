@@ -1,7 +1,8 @@
 services:
   fossflow:
-    image: stnsmith/fossflow:latest
-    pull_policy: always
+    build:
+      context: .
+      dockerfile: Dockerfile
     expose:
       - "80"
     environment:
