@@ -25,7 +25,7 @@ export function register(config?: Config) {
         checkValidServiceWorker(swUrl, config);
         navigator.serviceWorker.ready.then(() => {
           console.log(
-            'Cette application web est servie en cache-first par un service worker.'
+            'This web app is being served cache-first by a service worker.'
           );
         });
       } else {
@@ -48,14 +48,14 @@ function registerValidSW(swUrl: string, config?: Config) {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               console.log(
-                'Du nouveau contenu est disponible et sera utilise lorsque tous les onglets de cette page seront fermes.'
+                'New content is available and will be used when all tabs for this page are closed.'
               );
 
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
               }
             } else {
-              console.log('Le contenu est mis en cache pour une utilisation hors ligne.');
+              console.log('Content is cached for offline use.');
 
               if (config && config.onSuccess) {
                 config.onSuccess(registration);
@@ -66,7 +66,7 @@ function registerValidSW(swUrl: string, config?: Config) {
       };
     })
     .catch((error) => {
-      console.error("Erreur lors de l'enregistrement du service worker :", error);
+      console.error('Error during service worker registration:', error);
     });
 }
 
@@ -91,7 +91,7 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
     })
     .catch(() => {
       console.log(
-        "Aucune connexion Internet detectee. L'application fonctionne en mode hors ligne."
+        'No internet connection found. App is running in offline mode.'
       );
     });
 }

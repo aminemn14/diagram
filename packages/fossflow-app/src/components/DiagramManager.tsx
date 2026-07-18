@@ -40,7 +40,7 @@ export const DiagramManager: React.FC<Props> = ({
       const list = await storage.listDiagrams();
       setDiagrams(list);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Impossible de charger les diagrammes');
+      setError(err instanceof Error ? err.message : 'Failed to load diagrams');
     } finally {
       setLoading(false);
     }
@@ -53,12 +53,12 @@ export const DiagramManager: React.FC<Props> = ({
       onLoadDiagram(id, data);
       onClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Impossible de charger le diagramme');
+      setError(err instanceof Error ? err.message : 'Failed to load diagram');
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Voulez-vous vraiment supprimer ce diagramme ?')) {
+    if (!window.confirm('Are you sure you want to delete this diagram?')) {
       return;
     }
 
@@ -67,13 +67,13 @@ export const DiagramManager: React.FC<Props> = ({
       await storage.deleteDiagram(id);
       await loadDiagrams(); // Refresh list
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Impossible de supprimer le diagramme');
+      setError(err instanceof Error ? err.message : 'Failed to delete diagram');
     }
   };
 
   const handleSave = async () => {
     if (!saveName.trim()) {
-      setError('Veuillez saisir un nom de diagramme');
+      setError('Please enter a diagram name');
       return;
     }
 
@@ -87,7 +87,7 @@ export const DiagramManager: React.FC<Props> = ({
       
       if (existingDiagram) {
         const confirmOverwrite = window.confirm(
-          `Un diagramme nomme "${saveName}" existe deja. Il sera remplace. Voulez-vous continuer ?`
+          `A diagram named "${saveName}" already exists. This will overwrite it. Are you sure you want to continue?`
         );
         if (!confirmOverwrite) {
           return;
@@ -114,7 +114,7 @@ export const DiagramManager: React.FC<Props> = ({
       setSaveName('');
       await loadDiagrams(); // Refresh list
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Impossible d'enregistrer le diagramme");
+      setError(err instanceof Error ? err.message : 'Failed to save diagram');
     }
   };
 
@@ -122,17 +122,17 @@ export const DiagramManager: React.FC<Props> = ({
     <div className="diagram-manager-overlay">
       <div className="diagram-manager">
         <div className="diagram-manager-header">
-          <h2>Gestionnaire de diagrammes</h2>
+          <h2>Diagram Manager</h2>
           <button className="close-button" onClick={onClose}>×</button>
         </div>
 
         <div className="storage-info">
           <span className={`storage-badge ${isServerStorage ? 'server' : 'local'}`}>
-            {isServerStorage ? '🌐 Stockage serveur' : '💾 Stockage local'}
+            {isServerStorage ? '🌐 Server Storage' : '💾 Local Storage'}
           </span>
           {isServerStorage && (
             <span className="storage-note">
-              Les diagrammes sont enregistres sur le serveur et disponibles sur tous les appareils
+              Diagrams are saved on the server and available across all devices
             </span>
           )}
         </div>
@@ -147,22 +147,22 @@ export const DiagramManager: React.FC<Props> = ({
           <button 
             className="action-button primary"
             onClick={() => {
-              setSaveName(currentDiagramData?.name || 'Diagramme sans titre');
+              setSaveName(currentDiagramData?.name || 'Untitled Diagram');
               setShowSaveDialog(true);
             }}
           >
-            💾 Enregistrer le diagramme actuel
+            💾 Save Current Diagram
           </button>
         </div>
 
         {loading ? (
-          <div className="loading">Chargement des diagrammes...</div>
+          <div className="loading">Loading diagrams...</div>
         ) : (
           <div className="diagram-list">
             {diagrams.length === 0 ? (
               <div className="empty-state">
-                <p>Aucun diagramme enregistre</p>
-                <p className="hint">Enregistrez votre diagramme actuel pour commencer</p>
+                <p>No saved diagrams</p>
+                <p className="hint">Save your current diagram to get started</p>
               </div>
             ) : (
               diagrams.map(diagram => (
@@ -170,7 +170,7 @@ export const DiagramManager: React.FC<Props> = ({
                   <div className="diagram-info">
                     <h3>{diagram.name}</h3>
                     <span className="diagram-meta">
-                      Derniere modification : {diagram.lastModified.toLocaleString()}
+                      Last modified: {diagram.lastModified.toLocaleString()}
                       {diagram.size && ` • ${(diagram.size / 1024).toFixed(1)} KB`}
                     </span>
                   </div>
@@ -179,13 +179,13 @@ export const DiagramManager: React.FC<Props> = ({
                       className="action-button"
                       onClick={() => handleLoad(diagram.id)}
                     >
-                      Charger
+                      Load
                     </button>
                     <button 
                       className="action-button danger"
                       onClick={() => handleDelete(diagram.id)}
                     >
-                      Supprimer
+                      Delete
                     </button>
                   </div>
                 </div>
@@ -197,18 +197,18 @@ export const DiagramManager: React.FC<Props> = ({
         {/* Save Dialog */}
         {showSaveDialog && (
           <div className="save-dialog">
-            <h3>Enregistrer le diagramme</h3>
+            <h3>Save Diagram</h3>
             <input
               type="text"
-              placeholder="Nom du diagramme"
+              placeholder="Diagram name"
               value={saveName}
               onChange={(e) => setSaveName(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSave()}
               autoFocus
             />
             <div className="dialog-buttons">
-              <button onClick={handleSave}>Enregistrer</button>
-              <button onClick={() => setShowSaveDialog(false)}>Annuler</button>
+              <button onClick={handleSave}>Save</button>
+              <button onClick={() => setShowSaveDialog(false)}>Cancel</button>
             </div>
           </div>
         )}

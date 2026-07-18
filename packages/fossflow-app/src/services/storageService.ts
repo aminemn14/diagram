@@ -37,7 +37,7 @@ class ServerStorage implements StorageService {
       this.available = data.enabled;
       return this.available;
     } catch (error) {
-      console.log('Stockage serveur indisponible :', error);
+      console.log('Server storage not available:', error);
       this.available = false;
       return false;
     }
@@ -45,7 +45,7 @@ class ServerStorage implements StorageService {
 
   async listDiagrams(): Promise<DiagramInfo[]> {
     const response = await fetch(`${this.baseUrl}/api/diagrams`);
-    if (!response.ok) throw new Error('Impossible de lister les diagrammes');
+    if (!response.ok) throw new Error('Failed to list diagrams');
     
     const diagrams = await response.json();
     return diagrams.map((d: any) => ({
@@ -56,7 +56,7 @@ class ServerStorage implements StorageService {
 
   async loadDiagram(id: string): Promise<Model> {
     const response = await fetch(`${this.baseUrl}/api/diagrams/${id}`);
-    if (!response.ok) throw new Error('Impossible de charger le diagramme');
+    if (!response.ok) throw new Error('Failed to load diagram');
     return response.json();
   }
 
@@ -66,14 +66,14 @@ class ServerStorage implements StorageService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    if (!response.ok) throw new Error("Impossible d'enregistrer le diagramme");
+    if (!response.ok) throw new Error('Failed to save diagram');
   }
 
   async deleteDiagram(id: string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/api/diagrams/${id}`, {
       method: 'DELETE'
     });
-    if (!response.ok) throw new Error('Impossible de supprimer le diagramme');
+    if (!response.ok) throw new Error('Failed to delete diagram');
   }
 
   async createDiagram(data: Model): Promise<string> {
@@ -82,7 +82,7 @@ class ServerStorage implements StorageService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    if (!response.ok) throw new Error('Impossible de creer le diagramme');
+    if (!response.ok) throw new Error('Failed to create diagram');
     const result = await response.json();
     return result.id;
   }
@@ -110,7 +110,7 @@ class SessionStorage implements StorageService {
 
   async loadDiagram(id: string): Promise<Model> {
     const data = sessionStorage.getItem(`${this.KEY_PREFIX}${id}`);
-    if (!data) throw new Error('Diagramme introuvable');
+    if (!data) throw new Error('Diagram not found');
     return JSON.parse(data);
   }
 
@@ -122,7 +122,7 @@ class SessionStorage implements StorageService {
     const existing = list.findIndex(d => d.id === id);
     const info: DiagramInfo = {
       id,
-      name: (data as any).name || 'Diagramme sans titre',
+      name: (data as any).name || 'Untitled Diagram',
       lastModified: new Date(),
       size: JSON.stringify(data).length
     };
@@ -166,10 +166,10 @@ class StorageManager {
   async initialize(): Promise<StorageService> {
     // Try server storage first
     if (await this.serverStorage.isAvailable()) {
-      console.log('Utilisation du stockage serveur');
+      console.log('Using server storage');
       this.activeStorage = this.serverStorage;
     } else {
-      console.log('Utilisation du stockage de session');
+      console.log('Using session storage');
       this.activeStorage = this.sessionStorage;
     }
     return this.activeStorage;
@@ -177,7 +177,7 @@ class StorageManager {
 
   getStorage(): StorageService {
     if (!this.activeStorage) {
-      throw new Error("Stockage non initialise. Appelez initialize() d'abord.");
+      throw new Error('Storage not initialized. Call initialize() first.');
     }
     return this.activeStorage;
   }

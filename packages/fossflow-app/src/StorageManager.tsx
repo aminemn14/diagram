@@ -44,15 +44,15 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
   };
 
   const formatBytes = (bytes: number) => {
-    if (bytes === 0) return '0 octet';
+    if (bytes === 0) return '0 Bytes';
     const k = 1024;
-    const sizes = ['octets', 'Ko', 'Mo'];
+    const sizes = ['Bytes', 'KB', 'MB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   const clearOldDiagrams = () => {
-    if (window.confirm('Tous les diagrammes enregistres seront supprimes. Voulez-vous continuer ?')) {
+    if (window.confirm('This will remove all saved diagrams. Are you sure?')) {
       const keysToRemove = [];
       for (const key in localStorage) {
         if (key.startsWith('fossflow-')) {
@@ -61,7 +61,7 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
       }
       keysToRemove.forEach(key => localStorage.removeItem(key));
       calculateStorage();
-      alert('Tous les diagrammes ont ete supprimes. Veuillez recharger la page.');
+      alert('All diagrams cleared. Please reload the page.');
       window.location.reload();
     }
   };
@@ -101,10 +101,10 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
         maxWidth: '500px',
         width: '90%'
       }}>
-        <h2 style={{ marginTop: 0 }}>Gestionnaire de stockage</h2>
+        <h2 style={{ marginTop: 0 }}>Storage Manager</h2>
         
         <div style={{ marginBottom: '20px' }}>
-          <h3>Utilisation du stockage</h3>
+          <h3>Storage Usage</h3>
           <div style={{
             backgroundColor: '#e0e0e0',
             borderRadius: '4px',
@@ -119,10 +119,10 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
               transition: 'width 0.3s'
             }} />
           </div>
-          <p>Utilise : {formatBytes(storageInfo.used)} / ~5 Mo ({storagePercentage.toFixed(1)}%)</p>
+          <p>Used: {formatBytes(storageInfo.used)} / ~5 MB ({storagePercentage.toFixed(1)}%)</p>
           <ul style={{ fontSize: '14px' }}>
-            <li>Diagrammes FossFLOW : {formatBytes(storageInfo.diagrams)}</li>
-            <li>Autres donnees : {formatBytes(storageInfo.otherData)}</li>
+            <li>FossFLOW diagrams: {formatBytes(storageInfo.diagrams)}</li>
+            <li>Other data: {formatBytes(storageInfo.otherData)}</li>
           </ul>
         </div>
 
@@ -140,7 +140,7 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
               cursor: 'pointer'
             }}
           >
-            Exporter tous les diagrammes
+            Export All Diagrams
           </button>
           <button 
             onClick={clearOldDiagrams}
@@ -153,7 +153,7 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
               cursor: 'pointer'
             }}
           >
-            Supprimer tous les diagrammes
+            Clear All Diagrams
           </button>
         </div>
 
@@ -164,11 +164,11 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
           marginBottom: '20px',
           fontSize: '14px'
         }}>
-          <strong>Conseils pour liberer de l'espace :</strong>
+          <strong>Tips to save space:</strong>
           <ul style={{ marginBottom: 0 }}>
-            <li>Exportez les diagrammes dont vous n'avez pas besoin immediatement</li>
-            <li>Supprimez les anciennes versions des diagrammes</li>
-            <li>Videz le cache du navigateur si necessaire</li>
+            <li>Export diagrams you don't need immediately</li>
+            <li>Delete old versions of diagrams</li>
+            <li>Clear browser cache if needed</li>
           </ul>
         </div>
 
@@ -184,7 +184,7 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
             width: '100%'
           }}
         >
-          Fermer
+          Close
         </button>
       </div>
     </div>

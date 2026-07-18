@@ -40,7 +40,7 @@ export const useInitialDataManager = () => {
         // TODO: let's get better at reporting error messages here (starting with how we present them to users)
         // - not in console but in a modal
         console.log(validationResult.error.errors);
-        window.alert('Une erreur est presente dans votre modele.');
+        window.alert('There is an error in your model.');
         return;
       }
 

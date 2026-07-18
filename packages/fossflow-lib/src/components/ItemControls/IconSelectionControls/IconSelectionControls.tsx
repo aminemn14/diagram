@@ -176,7 +176,7 @@ export const IconSelectionControls = () => {
         >
           {/* Close button */}
           <MUIIconButton
-          aria-label="fermer"
+            aria-label="Close"
             onClick={() => {
               return uiStateActions.setItemControls(null);
             }}
@@ -208,7 +208,7 @@ export const IconSelectionControls = () => {
                 onClick={handleImportClick}
                 fullWidth
               >
-                Importer des icones
+                Import Icons
               </Button>
               <FormControlLabel
                 control={
@@ -220,13 +220,13 @@ export const IconSelectionControls = () => {
                 }
                 label={
                   <Typography variant="body2">
-                    Traiter comme isometrique (vue 3D)
+                    Treat as isometric (3D view)
                   </Typography>
                 }
                 sx={{ mt: 1, ml: 0 }}
               />
               <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-                Decochez pour les icones plates (logos, elements d'interface)
+                Uncheck for flat icons (logos, UI elements)
               </Typography>
             </Box>
             <input
@@ -238,7 +238,7 @@ export const IconSelectionControls = () => {
               onChange={handleFileSelect}
             />
             <Alert severity="info">
-              Vous pouvez glisser-deposer n'importe quel element ci-dessous sur le canevas.
+              You can drag and drop any item below onto the canvas.
             </Alert>
           </Stack>
         </Section>

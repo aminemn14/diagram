@@ -23,10 +23,10 @@ export default function ErrorBoundaryFallbackUI({
     const githubUrl = new URL(
       'https://github.com/stan-smith/FossFLOW/issues/new'
     );
-    githubUrl.searchParams.set('title', `Erreur : ${error.message}`);
+    githubUrl.searchParams.set('title', `Error: ${error.message}`);
     githubUrl.searchParams.set(
       'body',
-      `## Details de l'erreur\n\n\`\`\`\n${JSON.stringify(errorDetails, null, 2)}\n\`\`\`\n\n## Etapes pour reproduire\n1. \n2. \n3. \n\n## Comportement attendu\n\n## Comportement observe\n\n## Environnement\n- Navigateur : ${navigator.userAgent}\n- URL : ${window.location.href}\n- Horodatage : ${new Date().toISOString()}`
+      `## Error Details\n\n\`\`\`\n${JSON.stringify(errorDetails, null, 2)}\n\`\`\`\n\n## Steps to Reproduce\n1. \n2. \n3. \n\n## Expected Behavior\n\n## Actual Behavior\n\n## Environment\n- Browser: ${navigator.userAgent}\n- URL: ${window.location.href}\n- Timestamp: ${new Date().toISOString()}`
     );
 
     window.open(githubUrl.toString(), '_blank');
@@ -36,18 +36,18 @@ export default function ErrorBoundaryFallbackUI({
     <div className="error-page-container">
       <div className="error-container">
         <div className="error-header">
-          <p>⚠️ Une erreur est survenue.</p>
+          <p>⚠️ Something went wrong!</p>
         </div>
         <div className="error-content">
           <p>
-            <strong>Erreur :</strong> {error.message}
+            <strong>Error:</strong> {error.message}
           </p>
           {error.stack && (
             <details style={{ marginTop: '10px' }}>
               <summary
                 style={{ cursor: 'pointer', fontSize: '12px', color: '#666' }}
               >
-                Afficher les details techniques
+                Show technical details
               </summary>
               <pre
                 style={{
@@ -78,36 +78,36 @@ export default function ErrorBoundaryFallbackUI({
           }}
         >
           <p style={{ margin: '0 0 10px 0', fontWeight: '600' }}>
-            📋 Avant de signaler cette erreur :
+            📋 Before reporting this error:
           </p>
           <ul style={{ margin: '0 0 10px 0', paddingLeft: '20px' }}>
             <li>
-              Verifiez si cette erreur a deja ete signalee{' '}
+              Check if this error has already been reported{' '}
               <a
                 href="https://github.com/stan-smith/FossFLOW/issues"
                 target="_"
               >
-                ici
+                here👀
               </a>
             </li>
-            <li>Essayez d'abord de recharger la page</li>
-            <li>Signalez-la uniquement si c'est un nouveau probleme non repertorie</li>
+            <li>Try refreshing the page first</li>
+            <li>Only report if this is a new, unreported issue</li>
           </ul>
           <p style={{ margin: 0, fontSize: '13px' }}>
-            <strong>Note :</strong> si vous ne trouvez pas de probleme similaire,
-            signalez-le avec les details ci-dessous.
+            <strong>Note:</strong> If you can't find a similar issue, please
+            report it with the details below.
           </p>
         </div>
 
         <div className="error-footer">
           <button className="error-button" onClick={onReportButtonPressed}>
-            📋 Signaler le probleme
+            📋 Report Issue
           </button>
           <button
             className="error-button refresh-button"
             onClick={onRefreshButtonPressed}
           >
-            🔄 Recharger la page
+            🔄 Refresh Page
           </button>
         </div>
       </div>

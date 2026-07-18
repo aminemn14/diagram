@@ -75,13 +75,13 @@ function App() {
           fitToScreen: data.fitToScreen !== false
         };
       } catch (e) {
-        console.error('Impossible de charger les donnees du dernier diagramme ouvert :', e);
+        console.error('Failed to load last opened data:', e);
       }
     }
     
     // Default state if no saved data
     return {
-      title: 'Diagramme sans titre',
+      title: 'Untitled Diagram',
       icons: icons,
       colors: defaultColors,
       items: [],
@@ -118,7 +118,7 @@ function App() {
           setCurrentModel(diagramData);
         }
       } catch (e) {
-        console.error('Impossible de restaurer les metadonnees du dernier diagramme :', e);
+        console.error('Failed to restore last diagram metadata:', e);
       }
     }
   }, [diagramData]);
@@ -136,16 +136,16 @@ function App() {
       }));
       localStorage.setItem('fossflow-diagrams', JSON.stringify(diagramsToStore));
     } catch (e) {
-      console.error("Impossible d'enregistrer les diagrammes :", e);
+      console.error('Failed to save diagrams:', e);
       if (e instanceof DOMException && e.name === 'QuotaExceededError') {
-        alert("Quota de stockage depasse. Exportez les diagrammes importants et liberez de l'espace.");
+        alert('Storage quota exceeded. Please export important diagrams and clear some space.');
       }
     }
   }, [diagrams]);
 
   const saveDiagram = () => {
     if (!diagramName.trim()) {
-      alert('Veuillez saisir un nom de diagramme');
+      alert('Please enter a diagram name');
       return;
     }
 
@@ -156,7 +156,7 @@ function App() {
     
     if (existingDiagram) {
       const confirmOverwrite = window.confirm(
-        `Un diagramme nomme "${diagramName}" existe deja dans cette session. Il sera remplace. Voulez-vous continuer ?`
+        `A diagram named "${diagramName}" already exists in this session. This will overwrite it. Are you sure you want to continue?`
       );
       if (!confirmOverwrite) {
         return;
@@ -208,16 +208,16 @@ function App() {
       localStorage.setItem('fossflow-last-opened', newDiagram.id);
       localStorage.setItem('fossflow-last-opened-data', JSON.stringify(newDiagram.data));
     } catch (e) {
-      console.error("Impossible d'enregistrer le diagramme :", e);
+      console.error('Failed to save diagram:', e);
       if (e instanceof DOMException && e.name === 'QuotaExceededError') {
-        alert('Stockage plein. Ouverture du gestionnaire de stockage...');
+        alert('Storage full! Opening Storage Manager...');
         setShowStorageManager(true);
       }
     }
   };
 
   const loadDiagram = (diagram: SavedDiagram) => {
-    if (hasUnsavedChanges && !window.confirm('Vous avez des modifications non enregistrees. Continuer le chargement ?')) {
+    if (hasUnsavedChanges && !window.confirm('You have unsaved changes. Continue loading?')) {
       return;
     }
     
@@ -242,12 +242,12 @@ function App() {
       localStorage.setItem('fossflow-last-opened', diagram.id);
       localStorage.setItem('fossflow-last-opened-data', JSON.stringify(diagram.data));
     } catch (e) {
-      console.error("Impossible d'enregistrer le dernier diagramme ouvert :", e);
+      console.error('Failed to save last opened:', e);
     }
   };
 
   const deleteDiagram = (id: string) => {
-    if (window.confirm('Voulez-vous vraiment supprimer ce diagramme ?')) {
+    if (window.confirm('Are you sure you want to delete this diagram?')) {
       setDiagrams(diagrams.filter(d => d.id !== id));
       if (currentDiagram?.id === id) {
         setCurrentDiagram(null);
@@ -258,12 +258,12 @@ function App() {
 
   const newDiagram = () => {
     const message = hasUnsavedChanges 
-      ? "Vous avez des modifications non enregistrees. Exportez d'abord votre diagramme pour le sauvegarder. Continuer ?"
-      : 'Creer un nouveau diagramme ?';
+      ? 'You have unsaved changes. Export your diagram first to save it. Continue?'
+      : 'Create a new diagram?';
       
     if (window.confirm(message)) {
       const emptyDiagram: DiagramData = {
-        title: 'Diagramme sans titre',
+        title: 'Untitled Diagram',
         icons: icons, // Always include full icon set
         colors: defaultColors,
         items: [],
@@ -289,7 +289,7 @@ function App() {
     
     // Simply store the complete model as-is since it has everything
     const updatedModel = {
-      title: model.title || diagramName || 'Sans titre',
+      title: model.title || diagramName || 'Untitled',
       icons: model.icons || [], // This already includes ALL icons (default + imported)
       colors: model.colors || defaultColors,
       items: model.items || [],
@@ -331,7 +331,7 @@ function App() {
     const allIcons = Array.from(iconMap.values());
     
     const exportData = {
-      title: diagramName || modelToExport.title || 'Diagramme exporte',
+      title: diagramName || modelToExport.title || 'Exported Diagram',
       icons: allIcons, // Include ALL icons (default + imported) for portability
       colors: modelToExport.colors || [],
       items: modelToExport.items || [],
@@ -369,14 +369,14 @@ function App() {
         const mergedIcons = [...icons, ...importedIcons];
         const mergedData: DiagramData = {
           ...parsedData,
-          title: parsedData.title || 'Diagramme importe',
+          title: parsedData.title || 'Imported Diagram',
           icons: mergedIcons, // Merge default and imported icons
           colors: parsedData.colors?.length ? parsedData.colors : defaultColors,
           fitToScreen: parsedData.fitToScreen !== false
         };
         
         setDiagramData(mergedData);
-        setDiagramName(parsedData.title || 'Diagramme importe');
+        setDiagramName(parsedData.title || 'Imported Diagram');
         setCurrentModel(mergedData);
         setFossflowKey(prev => prev + 1); // Force re-render
         setShowImportDialog(false);
@@ -389,15 +389,15 @@ function App() {
         
         // Success message
         setTimeout(() => {
-          alert(`Le diagramme "${parsedData.title || 'Sans titre'}" a ete importe avec succes.`);
+          alert(`Diagram "${parsedData.title || 'Untitled'}" imported successfully!`);
         }, 100);
       } catch (error) {
-        alert('Fichier JSON invalide. Verifiez le format du fichier.');
+        alert('Invalid JSON file. Please check the file format.');
       }
     };
     
     reader.onerror = () => {
-      alert('Erreur lors de la lecture du fichier. Veuillez reessayer.');
+      alert('Error reading file. Please try again.');
     };
     
     reader.readAsText(file);
@@ -432,18 +432,18 @@ function App() {
     
     const mergedData: DiagramData = {
       ...data,
-      title: data.title || data.name || 'Diagramme charge',
+      title: data.title || data.name || 'Loaded Diagram',
       icons: finalIcons,
       colors: data.colors?.length ? data.colors : defaultColors,
       fitToScreen: data.fitToScreen !== false
     };
     
     setDiagramData(mergedData);
-    setDiagramName(data.name || 'Diagramme charge');
+    setDiagramName(data.name || 'Loaded Diagram');
     setCurrentModel(mergedData);
     setCurrentDiagram({
       id,
-      name: data.name || 'Diagramme charge',
+      name: data.name || 'Loaded Diagram',
       data: mergedData,
       createdAt: data.created || new Date().toISOString(),
       updatedAt: data.lastModified || new Date().toISOString()
@@ -486,9 +486,9 @@ function App() {
         setLastAutoSave(new Date());
         setHasUnsavedChanges(false);
       } catch (e) {
-        console.error("Echec de l'enregistrement automatique :", e);
+        console.error('Auto-save failed:', e);
         if (e instanceof DOMException && e.name === 'QuotaExceededError') {
-          alert("Stockage plein. Utilisez le gestionnaire de stockage pour liberer de l'espace.");
+          alert('Storage full! Please use Storage Manager to free up space.');
           setShowStorageManager(true);
         }
       }
@@ -502,7 +502,7 @@ function App() {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (hasUnsavedChanges) {
         e.preventDefault();
-        e.returnValue = 'Vous avez des modifications non enregistrees. Voulez-vous vraiment quitter ?';
+        e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
         return e.returnValue;
       }
     };
@@ -514,28 +514,28 @@ function App() {
   return (
     <div className="App">
       <div className="toolbar">
-        <button onClick={newDiagram}>Nouveau diagramme</button>
+        <button onClick={newDiagram}>New Diagram</button>
         {serverStorageAvailable && (
           <button 
             onClick={() => setShowDiagramManager(true)}
             style={{ backgroundColor: '#2196F3', color: 'white' }}
           >
-            🌐 Stockage serveur
+            🌐 Server Storage
           </button>
         )}
-        <button onClick={() => setShowSaveDialog(true)}>Enregistrer (session uniquement)</button>
-        <button onClick={() => setShowLoadDialog(true)}>Charger (session uniquement)</button>
+        <button onClick={() => setShowSaveDialog(true)}>Save (Session Only)</button>
+        <button onClick={() => setShowLoadDialog(true)}>Load (Session Only)</button>
         <button 
           onClick={() => setShowImportDialog(true)}
           style={{ backgroundColor: '#28a745' }}
         >
-          📂 Importer un fichier
+          📂 Import File
         </button>
         <button 
           onClick={() => setShowExportDialog(true)}
           style={{ backgroundColor: '#007bff' }}
         >
-          💾 Exporter un fichier
+          💾 Export File
         </button>
         <button 
           onClick={() => {
@@ -549,15 +549,15 @@ function App() {
             opacity: currentDiagram && hasUnsavedChanges ? 1 : 0.5,
             cursor: currentDiagram && hasUnsavedChanges ? 'pointer' : 'not-allowed'
           }}
-          title="Enregistrer uniquement dans la session actuelle"
+          title="Save to current session only"
         >
-          Enregistrement rapide (session)
+          Quick Save (Session)
         </button>
         <span className="current-diagram">
-          {currentDiagram ? `Actuel : ${currentDiagram.name}` : diagramName || 'Diagramme sans titre'}
-          {hasUnsavedChanges && <span style={{ color: '#ff9800', marginLeft: '10px' }}>• Modifie</span>}
+          {currentDiagram ? `Current: ${currentDiagram.name}` : diagramName || 'Untitled Diagram'}
+          {hasUnsavedChanges && <span style={{ color: '#ff9800', marginLeft: '10px' }}>• Modified</span>}
           <span style={{ fontSize: '12px', color: '#666', marginLeft: '10px' }}>
-            (Stockage de session uniquement - exportez pour conserver definitivement)
+            (Session storage only - export to save permanently)
           </span>
         </span>
       </div>
@@ -575,7 +575,7 @@ function App() {
       {showSaveDialog && (
         <div className="dialog-overlay">
           <div className="dialog">
-            <h2>Enregistrer le diagramme (session actuelle uniquement)</h2>
+            <h2>Save Diagram (Current Session Only)</h2>
             <div style={{
               backgroundColor: '#fff3cd',
               border: '1px solid #ffeeba',
@@ -583,21 +583,21 @@ function App() {
               borderRadius: '4px',
               marginBottom: '20px'
             }}>
-              <strong>⚠️ Important :</strong> cet enregistrement est temporaire et sera perdu a la fermeture du navigateur.
+              <strong>⚠️ Important:</strong> This save is temporary and will be lost when you close the browser.
               <br />
-              Utilisez <strong>Exporter un fichier</strong> pour conserver votre travail definitivement.
+              Use <strong>Export File</strong> to permanently save your work.
             </div>
             <input
               type="text"
-              placeholder="Saisir le nom du diagramme"
+              placeholder="Enter diagram name"
               value={diagramName}
               onChange={(e) => setDiagramName(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && saveDiagram()}
               autoFocus
             />
             <div className="dialog-buttons">
-              <button onClick={saveDiagram}>Enregistrer</button>
-              <button onClick={() => setShowSaveDialog(false)}>Annuler</button>
+              <button onClick={saveDiagram}>Save</button>
+              <button onClick={() => setShowSaveDialog(false)}>Cancel</button>
             </div>
           </div>
         </div>
@@ -607,7 +607,7 @@ function App() {
       {showLoadDialog && (
         <div className="dialog-overlay">
           <div className="dialog">
-            <h2>Charger un diagramme (session actuelle uniquement)</h2>
+            <h2>Load Diagram (Current Session Only)</h2>
             <div style={{
               backgroundColor: '#fff3cd',
               border: '1px solid #ffeeba',
@@ -615,29 +615,29 @@ function App() {
               borderRadius: '4px',
               marginBottom: '20px'
             }}>
-              <strong>⚠️ Note :</strong> ces enregistrements sont temporaires. Exportez vos diagrammes pour les conserver definitivement.
+              <strong>⚠️ Note:</strong> These saves are temporary. Export your diagrams to keep them permanently.
             </div>
             <div className="diagram-list">
               {diagrams.length === 0 ? (
-                <p>Aucun diagramme enregistre dans cette session</p>
+                <p>No saved diagrams found in this session</p>
               ) : (
                 diagrams.map(diagram => (
                   <div key={diagram.id} className="diagram-item">
                     <div>
                       <strong>{diagram.name}</strong>
                       <br />
-                      <small>Mis a jour : {new Date(diagram.updatedAt).toLocaleString()}</small>
+                      <small>Updated: {new Date(diagram.updatedAt).toLocaleString()}</small>
                     </div>
                     <div className="diagram-actions">
-                      <button onClick={() => loadDiagram(diagram)}>Charger</button>
-                      <button onClick={() => deleteDiagram(diagram.id)}>Supprimer</button>
+                      <button onClick={() => loadDiagram(diagram)}>Load</button>
+                      <button onClick={() => deleteDiagram(diagram.id)}>Delete</button>
                     </div>
                   </div>
                 ))
               )}
             </div>
             <div className="dialog-buttons">
-              <button onClick={() => setShowLoadDialog(false)}>Fermer</button>
+              <button onClick={() => setShowLoadDialog(false)}>Close</button>
             </div>
           </div>
         </div>
@@ -656,7 +656,7 @@ function App() {
       {showImportDialog && (
         <div className="dialog-overlay">
           <div className="dialog">
-            <h2>Importer un diagramme</h2>
+            <h2>Import Diagram</h2>
             <div style={{
               border: '2px dashed #ccc',
               borderRadius: '8px',
@@ -665,7 +665,7 @@ function App() {
               marginBottom: '20px',
               backgroundColor: '#f8f9fa'
             }}>
-              <p style={{ fontSize: '18px', marginBottom: '20px' }}>Choisissez un fichier JSON a importer</p>
+              <p style={{ fontSize: '18px', marginBottom: '20px' }}>Choose a JSON file to import</p>
               <button 
                 onClick={importDiagram}
                 style={{
@@ -678,14 +678,14 @@ function App() {
                   cursor: 'pointer'
                 }}
               >
-                Selectionner un fichier
+                Select File
               </button>
               <p style={{ marginTop: '20px', color: '#666', fontSize: '14px' }}>
-                Format pris en charge : fichiers .json exportes depuis Isoflow
+                Supported format: .json files exported from Isoflow
               </p>
             </div>
             <div className="dialog-buttons">
-              <button onClick={() => setShowImportDialog(false)}>Annuler</button>
+              <button onClick={() => setShowImportDialog(false)}>Cancel</button>
             </div>
           </div>
         </div>
@@ -695,7 +695,7 @@ function App() {
       {showExportDialog && (
         <div className="dialog-overlay">
           <div className="dialog">
-            <h2>Exporter le diagramme</h2>
+            <h2>Export Diagram</h2>
             <div style={{
               backgroundColor: '#d4edda',
               border: '1px solid #c3e6cb',
@@ -704,15 +704,15 @@ function App() {
               marginBottom: '20px'
             }}>
               <p style={{ margin: '0 0 10px 0' }}>
-                <strong>✅ Recommande :</strong> c'est la meilleure facon de conserver votre travail definitivement.
+                <strong>✅ Recommended:</strong> This is the best way to save your work permanently.
               </p>
               <p style={{ margin: 0, fontSize: '14px', color: '#155724' }}>
-                Les fichiers JSON exportes peuvent etre importes plus tard ou partages avec d'autres personnes.
+                Exported JSON files can be imported later or shared with others.
               </p>
             </div>
             <div className="dialog-buttons">
-              <button onClick={exportDiagram}>Telecharger le JSON</button>
-              <button onClick={() => setShowExportDialog(false)}>Annuler</button>
+              <button onClick={exportDiagram}>Download JSON</button>
+              <button onClick={() => setShowExportDialog(false)}>Cancel</button>
             </div>
           </div>
         </div>

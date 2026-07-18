@@ -25,41 +25,41 @@ export const DebugUtils = () => {
       }}
     >
       <LineItem
-        title="Souris"
+        title="Mouse"
         value={`${uiState.mouse.position.tile.x}, ${uiState.mouse.position.tile.y}`}
       />
       <LineItem
-        title="Clic souris"
+        title="Mouse down"
         value={
           uiState.mouse.mousedown
             ? `${uiState.mouse.mousedown.tile.x}, ${uiState.mouse.mousedown.tile.y}`
-            : 'nul'
+            : 'null'
         }
       />
       <LineItem
-        title="Delta souris"
+        title="Mouse delta"
         value={
           uiState.mouse.delta
             ? `${uiState.mouse.delta.tile.x}, ${uiState.mouse.delta.tile.y}`
-            : 'nul'
+            : 'null'
         }
       />
       <LineItem
-        title="Defilement"
+        title="Scroll"
         value={`${uiState.scroll.position.x}, ${uiState.scroll.position.y}`}
       />
       <LineItem title="Zoom" value={uiState.zoom} />
       <LineItem
-        title="Taille"
+        title="Size"
         value={`${rendererSize.width}, ${rendererSize.height}`}
       />
       <LineItem
-        title="Infos scene"
-        value={`${scene.items.length} elements dans la scene`}
+        title="Scene info"
+        value={`${scene.items.length} items in scene`}
       />
       <LineItem title="Mode" value={uiState.mode.type} />
       <LineItem
-        title="Donnees du mode"
+        title="Mode data"
         value={JSON.stringify(uiState.mode, null, 2)}
       />
     </Box>

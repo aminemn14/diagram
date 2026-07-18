@@ -32,7 +32,7 @@ export const NodeSettings = ({
 
   return (
     <>
-      <Section title="Nom">
+      <Section title="Name">
         <TextField
           value={modelItem.name}
           onChange={(e) => {
@@ -51,7 +51,7 @@ export const NodeSettings = ({
         />
       </Section>
       {modelItem.name && (
-        <Section title="Hauteur du libelle">
+        <Section title="Label height">
           <Slider
             marks
             step={20}

@@ -82,12 +82,12 @@ export const ConnectorHintTooltip = ({ toolMenuRef }: Props) => {
         </IconButton>
         
         <Typography variant="subtitle2" gutterBottom sx={{ fontWeight: 600 }}>
-          Astuce : modifier le trace des connecteurs
+          Tip: Rerouting Connectors
         </Typography>
         
         <Typography variant="body2" color="text.secondary">
-          Pour modifier le trace d'un connecteur, faites un <strong>clic droit</strong> sur un point
-          de la ligne puis glissez pour creer ou deplacer des points d'ancrage.
+          To reroute a connector track, <strong>right-click</strong> on any point 
+          along the connector line and drag to create or move anchor points.
         </Typography>
       </Paper>
     </Box>

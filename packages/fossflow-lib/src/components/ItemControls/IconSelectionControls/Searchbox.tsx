@@ -11,7 +11,7 @@ export const Searchbox = ({ value, onChange }: Props) => {
   return (
     <TextField
       fullWidth
-      placeholder="Rechercher des icones"
+      placeholder="Search icons"
       value={value}
       onChange={(e) => {
         return onChange(e.target.value as string);

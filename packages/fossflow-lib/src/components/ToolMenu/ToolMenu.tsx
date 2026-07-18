@@ -67,13 +67,13 @@ export const ToolMenu = () => {
       <Stack direction="row" spacing={0.5} alignItems="center">
         {/* Undo/Redo Section */}
         <IconButton
-          name="Annuler (Ctrl+Z)"
+          name="Undo (Ctrl+Z)"
           Icon={<UndoIcon />}
           onClick={handleUndo}
           disabled={!canUndo}
         />
         <IconButton
-          name="Retablir (Ctrl+Y)"
+          name="Redo (Ctrl+Y)"
           Icon={<RedoIcon />}
           onClick={handleRedo}
           disabled={!canRedo}
@@ -81,7 +81,7 @@ export const ToolMenu = () => {
 
         {/* Main Tools */}
         <IconButton
-          name={`Selectionner${hotkeys.select ? ` (${hotkeys.select.toUpperCase()})` : ''}`}
+          name={`Select${hotkeys.select ? ` (${hotkeys.select.toUpperCase()})` : ''}`}
           Icon={<NearMeIcon />}
           onClick={() => {
             uiStateStoreActions.setMode({
@@ -93,7 +93,7 @@ export const ToolMenu = () => {
           isActive={mode.type === 'CURSOR' || mode.type === 'DRAG_ITEMS'}
         />
         <IconButton
-          name={`Deplacer la vue${hotkeys.pan ? ` (${hotkeys.pan.toUpperCase()})` : ''}`}
+          name={`Pan${hotkeys.pan ? ` (${hotkeys.pan.toUpperCase()})` : ''}`}
           Icon={<PanToolIcon />}
           onClick={() => {
             uiStateStoreActions.setMode({
@@ -106,7 +106,7 @@ export const ToolMenu = () => {
           isActive={mode.type === 'PAN'}
         />
         <IconButton
-          name={`Ajouter un element${hotkeys.addItem ? ` (${hotkeys.addItem.toUpperCase()})` : ''}`}
+          name={`Add item${hotkeys.addItem ? ` (${hotkeys.addItem.toUpperCase()})` : ''}`}
           Icon={<AddIcon />}
           onClick={() => {
             uiStateStoreActions.setItemControls({
@@ -133,7 +133,7 @@ export const ToolMenu = () => {
           isActive={mode.type === 'RECTANGLE.DRAW'}
         />
         <IconButton
-          name={`Connecteur${hotkeys.connector ? ` (${hotkeys.connector.toUpperCase()})` : ''}`}
+          name={`Connector${hotkeys.connector ? ` (${hotkeys.connector.toUpperCase()})` : ''}`}
           Icon={<ConnectorIcon />}
           onClick={() => {
             uiStateStoreActions.setMode({
@@ -145,7 +145,7 @@ export const ToolMenu = () => {
           isActive={mode.type === 'CONNECTOR'}
         />
         <IconButton
-          name={`Texte${hotkeys.text ? ` (${hotkeys.text.toUpperCase()})` : ''}`}
+          name={`Text${hotkeys.text ? ` (${hotkeys.text.toUpperCase()})` : ''}`}
           Icon={<TitleIcon />}
           onClick={createTextBoxProxy}
           isActive={mode.type === 'TEXTBOX'}

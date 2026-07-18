@@ -41,7 +41,7 @@ export const TextBoxControls = ({ id }: Props) => {
       <Box sx={{ position: 'relative', paddingTop: '24px' }}>
         {/* Close button */}
         <MUIIconButton
-          aria-label="fermer"
+          aria-label="Close"
           onClick={() => {
             return uiStateActions.setItemControls(null);
           }}
@@ -55,7 +55,7 @@ export const TextBoxControls = ({ id }: Props) => {
         >
           <CloseIcon />
         </MUIIconButton>
-        <Section title="Saisir le texte">
+        <Section title="Enter text">
           <TextField
             value={textBox.content}
             onChange={(e) => {
@@ -63,7 +63,7 @@ export const TextBoxControls = ({ id }: Props) => {
             }}
           />
         </Section>
-        <Section title="Taille du texte">
+        <Section title="Text size">
           <Slider
             marks
             step={0.3}
@@ -75,7 +75,7 @@ export const TextBoxControls = ({ id }: Props) => {
             }}
           />
         </Section>
-        <Section title="Alignement">
+        <Section title="Alignment">
           <ToggleButtonGroup
             value={textBox.orientation}
             exclusive

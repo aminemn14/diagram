@@ -72,7 +72,7 @@ export const NodeControls = ({ id }: Props) => {
       >
         {/* Close button */}
         <MUIIconButton
-          aria-label="fermer"
+          aria-label="Close"
           onClick={() => {
             return uiStateActions.setItemControls(null);
           }}
@@ -106,7 +106,7 @@ export const NodeControls = ({ id }: Props) => {
                 }}
                 variant="text"
               >
-                Modifier l'icone
+                Update icon
               </Button>
             )}
             {mode === 'CHANGE_ICON' && (
@@ -117,7 +117,7 @@ export const NodeControls = ({ id }: Props) => {
                 }}
                 variant="text"
               >
-                Parametres
+                Settings
               </Button>
             )}
           </Stack>
