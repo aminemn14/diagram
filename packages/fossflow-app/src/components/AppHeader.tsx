@@ -1,4 +1,6 @@
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
+  ChevronDown,
   Database,
   Download,
   FolderOpen,
@@ -43,6 +45,63 @@ export function AppHeader({
   const title = currentDiagram
     ? currentDiagram.name
     : diagramName || 'Diagramme sans titre';
+  const canQuickSave = Boolean(currentDiagram && hasUnsavedChanges);
+  const actions = [
+    {
+      label: 'Nouveau',
+      title: 'Creer un nouveau diagramme',
+      icon: <Plus size={15} strokeWidth={2.2} />,
+      onSelect: onNewDiagram,
+      variant: 'default' as const
+    },
+    ...(serverStorageAvailable
+      ? [
+          {
+            label: 'Serveur',
+            title: 'Ouvrir le stockage serveur',
+            icon: <Database size={15} strokeWidth={2.2} />,
+            onSelect: onOpenServerStorage,
+            variant: 'secondary' as const
+          }
+        ]
+      : []),
+    {
+      label: 'Enreg.',
+      title: 'Enregistrer dans la session',
+      icon: <Save size={15} strokeWidth={2.2} />,
+      onSelect: onOpenSaveDialog,
+      variant: 'outline' as const
+    },
+    {
+      label: 'Charger',
+      title: 'Charger depuis la session',
+      icon: <FolderOpen size={15} strokeWidth={2.2} />,
+      onSelect: onOpenLoadDialog,
+      variant: 'outline' as const
+    },
+    {
+      label: 'Import',
+      title: 'Importer un fichier JSON',
+      icon: <Upload size={15} strokeWidth={2.2} />,
+      onSelect: onOpenImportDialog,
+      variant: 'outline' as const
+    },
+    {
+      label: 'Export',
+      title: 'Exporter le diagramme en JSON',
+      icon: <Download size={15} strokeWidth={2.2} />,
+      onSelect: onOpenExportDialog,
+      variant: 'outline' as const
+    },
+    {
+      label: 'Sync',
+      title: 'Enregistrement rapide dans la session',
+      icon: <Save size={15} strokeWidth={2.2} />,
+      onSelect: onQuickSave,
+      variant: 'default' as const,
+      disabled: !canQuickSave
+    }
+  ];
 
   return (
     <header className="app-header">
@@ -57,68 +116,53 @@ export function AppHeader({
         {hasUnsavedChanges && <span className="app-header__status">Modifie</span>}
       </div>
 
-      <nav className="app-header__actions" aria-label="Actions du diagramme">
-        <Button onClick={onNewDiagram} title="Creer un nouveau diagramme">
-          <Plus size={15} strokeWidth={2.2} />
-          Nouveau
-        </Button>
-
-        {serverStorageAvailable && (
+      <nav
+        className="app-header__actions app-header__actions--desktop"
+        aria-label="Actions du diagramme"
+      >
+        {actions.map((action) => (
           <Button
-            onClick={onOpenServerStorage}
-            variant="secondary"
-            title="Ouvrir le stockage serveur"
+            key={action.label}
+            onClick={action.onSelect}
+            variant={action.variant}
+            disabled={action.disabled}
+            title={action.title}
           >
-            <Database size={15} strokeWidth={2.2} />
-            Serveur
+            {action.icon}
+            {action.label}
           </Button>
-        )}
-
-        <Button
-          onClick={onOpenSaveDialog}
-          variant="outline"
-          title="Enregistrer dans la session"
-        >
-          <Save size={15} strokeWidth={2.2} />
-          Enreg.
-        </Button>
-
-        <Button
-          onClick={onOpenLoadDialog}
-          variant="outline"
-          title="Charger depuis la session"
-        >
-          <FolderOpen size={15} strokeWidth={2.2} />
-          Charger
-        </Button>
-
-        <Button
-          onClick={onOpenImportDialog}
-          variant="outline"
-          title="Importer un fichier JSON"
-        >
-          <Upload size={15} strokeWidth={2.2} />
-          Import
-        </Button>
-
-        <Button
-          onClick={onOpenExportDialog}
-          variant="outline"
-          title="Exporter le diagramme en JSON"
-        >
-          <Download size={15} strokeWidth={2.2} />
-          Export
-        </Button>
-
-        <Button
-          onClick={onQuickSave}
-          disabled={!currentDiagram || !hasUnsavedChanges}
-          title="Enregistrement rapide dans la session"
-        >
-          <Save size={15} strokeWidth={2.2} />
-          Sync
-        </Button>
+        ))}
       </nav>
+
+      <div className="app-header__actions app-header__actions--mobile">
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger asChild>
+            <Button variant="outline" title="Afficher les actions du diagramme">
+              Actions
+              <ChevronDown size={15} strokeWidth={2.2} />
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Portal>
+            <DropdownMenu.Content
+              className="app-header__menu"
+              align="end"
+              sideOffset={8}
+            >
+              {actions.map((action) => (
+                <DropdownMenu.Item
+                  key={action.label}
+                  className="app-header__menu-item"
+                  disabled={action.disabled}
+                  onSelect={action.onSelect}
+                >
+                  {action.icon}
+                  <span>{action.label}</span>
+                </DropdownMenu.Item>
+              ))}
+            </DropdownMenu.Content>
+          </DropdownMenu.Portal>
+        </DropdownMenu.Root>
+      </div>
     </header>
   );
 }
